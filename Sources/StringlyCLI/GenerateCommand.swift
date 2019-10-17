@@ -50,9 +50,8 @@ class GenerateCommand: Command {
         if let destinationPath = self.destinationPath.value?.normalize() {
             try destinationPath.parent().mkpath()
             try destinationPath.write(stringsContent)
-            Term.stdout.write("Generated \(destinationPath)")
         } else {
-            Term.stdout.write(stringsContent)
+            Term.stdout.print(stringsContent)
         }
     }
 }
