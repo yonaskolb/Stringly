@@ -65,4 +65,5 @@ welcomeLabel.text = L10n.Welcome.title("John")
 - Generate to other languages like Android `R.string` file
 - Cross platform string substitutions
 - Cross platform plural support
+- Multi-language support
 - Comments and other data for keys
