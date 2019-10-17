@@ -1,0 +1,8 @@
+auth:
+  loginButton: Log In
+  passwordTitle: Password
+  emailTitle: Email
+  error:
+    wrongEmailPassword: Incorrect email/password combination
+welcome:
+  title: Hello %@

@@ -1,0 +1,8 @@
+
+"auth.emailTitle" = "Email";
+"auth.loginButton" = "Log In";
+"auth.passwordTitle" = "Password";
+
+"auth.error.wrongEmailPassword" = "Incorrect email/password combination";
+
+"welcome.title" = "Hello %@";
