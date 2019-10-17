@@ -1,8 +1,12 @@
+// This file was auto-generated with https://github.com/yonaskolb/Stringly
 
+/*** AUTH **********************************************/
 "auth.emailTitle" = "Email";
 "auth.loginButton" = "Log In";
 "auth.passwordTitle" = "Password";
 
+/*** AUTH.ERROR ****************************************/
 "auth.error.wrongEmailPassword" = "Incorrect email/password combination";
 
+/*** WELCOME *******************************************/
 "welcome.title" = "Hello %@";

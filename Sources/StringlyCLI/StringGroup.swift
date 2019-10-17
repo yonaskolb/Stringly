@@ -34,7 +34,8 @@ public struct StringGroup {
 extension StringGroup {
 
     public func toStringsFile() -> String {
-        return lines.joined(separator: "\n")
+        let description = "// This file was auto-generated with https://github.com/yonaskolb/Stringly"
+        return "\(description)\n\(lines.joined(separator: "\n"))"
     }
 
     private var lines: [String] {
@@ -43,7 +44,12 @@ extension StringGroup {
         array += strings
             .map { "\"\(pathString)\(path.isEmpty ? "" : ".")\($0.key)\" = \"\($0.value)\";"}
             .sorted()
-        let sortedGroups = groups.sorted { $0.pathString < $1.pathString }.map { [""] + $0.lines }
+        let sortedGroups = groups
+            .sorted { $0.pathString < $1.pathString }
+            .map { group -> [String] in
+                let comment = "\n/*** \(group.pathString.uppercased()) \(String(repeating: "*", count: 50 - group.pathString.count))/"
+                return [comment] + group.lines
+            }
         let groupLines = sortedGroups.reduce([]) { $0 + $1 }
         array += groupLines
         return array
