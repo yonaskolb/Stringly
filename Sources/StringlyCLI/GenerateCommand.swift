@@ -10,6 +10,7 @@ import SwiftCLI
 import PathKit
 import Yams
 import TOMLDeserializer
+import Rainbow
 
 class GenerateCommand: Command {
 
@@ -65,8 +66,12 @@ enum GenerateError: ProcessError {
     var exitStatus: Int32 { 1 }
 
     var message: String? {
+        return description.red
+    }
+
+    var description: String {
         switch self {
-        case .sourceParseError: return "Failed to parse source"
+        case .sourceParseError: return "Failed to parse source file"
         case .unstructuredContent: return "Source file has unstructured content"
         case .missingSource: return "Source file does not exist"
         }
