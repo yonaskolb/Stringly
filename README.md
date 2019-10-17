@@ -4,13 +4,15 @@ Stringly generates an Apple `.string` file from a `yaml`,`json`, or `toml` file.
 
 Having such an easily editable and nested structure is perfect for generating strings with https://github.com/SwiftGen/SwiftGen with the `structured-swift4` strings template
 
-### Usage
+## Usage
 
 ```
 stringly Strings.yml Localized.strings
 ```
 
-Strings.yml
+## Example
+
+`Strings.yml`:
 ```yml
 auth:
   loginButton: Log In
@@ -47,7 +49,19 @@ Generated to `Localized.strings`:
 "welcome.title" = "Hello %@";
 ```
 
-### Future Direction
+Then generation with [SwiftGen](https://github.com/SwiftGen/SwiftGen):
+```sh
+$ swiftgen strings --template structured-swift4 --output Strings.swift
+```
+
+Results in usage like this:
+```swift
+errorLabel.text = L10n.Auth.Error.wrongEmailPassword
+welcomeLabel.text = L10n.Welcome.title("John")
+
+```
+
+## Future Directions
 - Generate to other languages like Android `R.string` file
 - Cross platform string substitutions
 - Cross platform plural support
