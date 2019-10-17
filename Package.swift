@@ -13,6 +13,7 @@ let package = Package(
         .package(url: "https://github.com/kylef/PathKit", from: "0.9.0"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.1.0"),
         .package(url: "https://github.com/jakeheis/SwiftCLI", from: "5.2.0"),
+        .package(url: "https://github.com/dduan/TOMLDeserializer", from: "0.2.4"),
     ],
     targets: [
         .target(
@@ -20,7 +21,7 @@ let package = Package(
             dependencies: ["StringlyCLI"]),
         .target(
             name: "StringlyCLI",
-            dependencies: ["Yams", "Rainbow", "SwiftCLI", "PathKit"]),
+            dependencies: ["Yams", "Rainbow", "SwiftCLI", "PathKit", "TOMLDeserializer"]),
         .testTarget(
             name: "StringlyCLITests",
             dependencies: ["StringlyCLI"]),

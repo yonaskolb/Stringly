@@ -1,0 +1,10 @@
+[auth]
+emailTitle = "Email"
+loginButton = "Log In"
+passwordTitle = "Password"
+
+[auth.error]
+wrongEmailPassword = "Incorrect email/password combination"
+
+[welcome]
+title = "Hello %@"
