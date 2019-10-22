@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftCLI
+import PathKit
 
 public class StringlyCLI {
 
@@ -14,9 +15,10 @@ public class StringlyCLI {
     let cli: CLI
 
     public init() {
-        let generateCommand = GenerateCommand()
-        cli = CLI(name: "swiftgen", version: version, description: "Generates .string files from yaml files", commands: [generateCommand])
-        cli.parser.routeBehavior = .searchWithFallback(generateCommand)
+        cli = CLI(name: "swiftgen", version: version, description: "Generates localization files from a yaml spec", commands: [
+            GenerateCommand(),
+            GenerateFileCommand(),
+            ])
     }
 
     public func run(arguments: [String] = []) -> Int32 {
@@ -25,5 +27,11 @@ public class StringlyCLI {
         } else {
             return cli.go(with: arguments)
         }
+    }
+}
+
+extension Path: ConvertibleFromString {
+    public static func convert(from: String) -> Path? {
+        Path(from)
     }
 }

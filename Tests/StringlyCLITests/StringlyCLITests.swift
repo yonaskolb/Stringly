@@ -1,27 +1,47 @@
 import XCTest
-import class Foundation.Bundle
 import StringlyCLI
 import PathKit
 
 final class StringlyTests: XCTestCase {
 
     static let fixturePath = Path(#file).parent().parent() + "Fixtures"
-    static let yamlPath = fixturePath + "Strings.yml"
-    static let tomlPath = fixturePath + "Strings.toml"
-    static let stringsPath = fixturePath + "Strings.strings"
 
-    func testGeneration() throws {
+    static let stringsYamlPath = fixturePath + "Strings.yml"
 
-        let stringsFile: String = try Self.stringsPath.read()
+    func generateFileDiff(destination: Path, language: String = "en", file: StaticString = #file, line: UInt = #line) throws {
+        let previousFile: String = try destination.read()
 
         let cli = StringlyCLI()
+        let output = cli.run(arguments: ["generate-file", Self.stringsYamlPath.string, destination.string, "--language", language])
+        XCTAssertEqual(0, output, file: file, line: line)
 
-        XCTAssertEqual(0, cli.run(arguments: [Self.yamlPath.string, Self.stringsPath.string]))
-        let yamlStringsFile: String = try Self.stringsPath.read()
-        XCTAssertEqual(stringsFile, yamlStringsFile)
+        let newFile: String = try destination.read()
+        if newFile != previousFile {
+            let message = prettyFirstDifferenceBetweenStrings(newFile, previousFile)
+            XCTFail("\(destination.lastComponent) has changed:\n\(message)", file: file, line: line)
+        }
+    }
 
-        XCTAssertEqual(0, cli.run(arguments: [Self.tomlPath.string, Self.stringsPath.string]))
-        let tomlStringsFile: String = try Self.stringsPath.read()
-        XCTAssertEqual(stringsFile, tomlStringsFile)
+    func testStringsGeneration() throws {
+        try generateFileDiff(destination: Self.fixturePath + "en.lproj/Strings.strings")
+    }
+
+    func testStringsDictGeneration() throws {
+        try generateFileDiff(destination: Self.fixturePath + "en.lproj/Strings.stringsdict")
+    }
+
+    func testSwiftGeneration() throws {
+        try generateFileDiff(destination: Self.fixturePath + "Strings.swift")
+    }
+
+    func testTomlParsing() throws {
+        let strings = try Loader.loadStrings(from: Self.fixturePath + "Strings.toml", baseLanguage: "en")
+        XCTAssertNotNil(strings)
+    }
+
+    func testXGenerate() throws {
+        let cli = StringlyCLI()
+        let output = cli.run(arguments: ["generate", Self.stringsYamlPath.string])
+        XCTAssertEqual(0, output)
     }
 }

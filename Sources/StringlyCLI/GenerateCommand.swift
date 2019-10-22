@@ -7,79 +7,44 @@
 
 import Foundation
 import SwiftCLI
+import StringlyKit
 import PathKit
-import Yams
-import TOMLDeserializer
 import Rainbow
 
 class GenerateCommand: Command {
 
     let name: String = "generate"
-    let shortDescription: String = "Generates a .strings file from a yaml/json file."
-    let longDescription: String = """
-    Generates a .strings file from a yaml file. If no destination path is passed the file content will be written to stdout
-    """
+    let shortDescription: String = "Generates all required localization files for a given platform"
+    let platform = Key<PlatformType>("--platform", "-p", description: "The platform to generate files for. Defaults to apple")
 
     let sourcePath = Param.Required<Path>()
-    let destinationPath = Param.Optional<Path>()
+    let directoryPath = Key<Path>("--directory", "-d", description: "The directory to generate the files in. Defaults to the directory the source path is in")
+    let baseLanguage = Key<String>("--base", "-b", description: "The base language to use. Defaults to en")
 
     func execute() throws {
         let sourcePath = self.sourcePath.value.normalize()
-        if !sourcePath.exists {
-            throw GenerateError.missingSource
-        }
-        let sourceString: String = try sourcePath.read()
-        let dictionary: [String: Any]
-        do {
-            switch sourcePath.extension {
-            case "toml", "tml":
-                dictionary = try TOMLDeserializer.tomlTable(with: sourceString)
-            default:
-                let yaml = try Yams.load(yaml: sourceString)
-                guard let dict = yaml as? [String: Any] else {
-                    throw GenerateError.unstructuredContent
+        let directoryPath = self.directoryPath.value ?? sourcePath.parent()
+        let baseLanguage = self.baseLanguage.value ?? "en"
+        let platform = self.platform.value ?? .apple
+
+        let strings = try Loader.loadStrings(from: sourcePath, baseLanguage: baseLanguage)
+        let languages = strings.getLanguages()
+
+        switch platform {
+        case .apple:
+            for language in languages {
+                try Generator.generate(fileType: .strings, strings: strings, language: language, destinationPath: directoryPath + "\(language).lproj/Strings.strings")
+
+                if strings.languageHasPlurals(language) {
+                    try Generator.generate(fileType: .stringsDict, strings: strings, language: language, destinationPath: directoryPath + "\(language).lproj/Strings.stringsdict")
                 }
-                dictionary = dict
             }
-        } catch {
-            throw GenerateError.sourceParseError(error)
+            try Generator.generate(fileType: .swift, strings: strings, language: baseLanguage, destinationPath: directoryPath + "Strings.swift")
+        case .android:
+            fatalError("Android not yet supported".red)
         }
 
-        let strings = StringGroup(dictionary)
-        let stringsContent = strings.toStringsFile()
-
-        if let destinationPath = self.destinationPath.value?.normalize() {
-            try destinationPath.parent().mkpath()
-            try destinationPath.write(stringsContent)
-        } else {
-            Term.stdout.print(stringsContent)
-        }
     }
 }
 
-enum GenerateError: ProcessError {
 
-    case sourceParseError(Error)
-    case unstructuredContent
-    case missingSource
-
-    var exitStatus: Int32 { 1 }
-
-    var message: String? {
-        return description.red
-    }
-
-    var description: String {
-        switch self {
-        case .sourceParseError: return "Failed to parse source file"
-        case .unstructuredContent: return "Source file has unstructured content"
-        case .missingSource: return "Source file does not exist"
-        }
-    }
-}
-
-extension Path: ConvertibleFromString {
-    public static func convert(from: String) -> Path? {
-        Path(from)
-    }
-}

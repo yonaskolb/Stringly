@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>plurals.apples</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>There %#@appleCount@ in the garden</string>
+		<key>appleCount</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>one</key>
+			<string>is 1 apple</string>
+			<key>other</key>
+			<string>are %u apples</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Codability",
+        "repositoryURL": "https://github.com/yonaskolb/Codability",
+        "state": {
+          "branch": null,
+          "revision": "eb5bac78e0679f521c3f058c1eb9be0dd657dadd",
+          "version": "0.2.1"
+        }
+      },
+      {
         "package": "NetTime",
         "repositoryURL": "https://github.com/dduan/NetTime",
         "state": {

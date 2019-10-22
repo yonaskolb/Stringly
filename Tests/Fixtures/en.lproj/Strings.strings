@@ -1,12 +1,18 @@
 // This file was auto-generated with https://github.com/yonaskolb/Stringly
 
-/*** AUTH **********************************************/
+// AUTH
 "auth.emailTitle" = "Email";
 "auth.loginButton" = "Log In";
 "auth.passwordTitle" = "Password";
 
-/*** AUTH.ERROR ****************************************/
+// AUTH.ERROR
 "auth.error.wrongEmailPassword" = "Incorrect email/password combination";
 
-/*** WELCOME *******************************************/
-"welcome.title" = "Hello %@";
+// LANGUAGES
+"languages.greeting" = "Hello";
+
+// PLACEHOLDERS
+"placeholders.hello" = "Hello %@ with number %u";
+
+// PLURALS
+"plurals.apples" = "There %u in the garden";

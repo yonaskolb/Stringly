@@ -1,70 +1,62 @@
 # Stringly
 
-Stringly generates an Apple `.string` file from a `yaml`,`json`, or `toml` file.
+Stringly generates type safe localization files from a source `yaml`,`json`, or `toml` file. At the moment only outputs for Apple platforms are supported
 
-Having such an easily editable and nested structure is perfect for generating strings with https://github.com/SwiftGen/SwiftGen with the `structured-swift4` strings template
+- ✅ **Multi-language** support
+- ✅ **Named placeholders**
+- ✅ **Plural** support
+- ✅ Compile safe **Swift** accessors
 
 ## Usage
 
+See help
 ```
-stringly Strings.yml Localized.strings
+stringly help
+```
+To generate all files in all languages
+```
+stringly generate Strings.yml
+```
+To generate a single file in a certain langage
+```
+stringly generate-file Strings.yml Strings.strins --language de
 ```
 
 ## Example
 
-`Strings.yml`:
+Given a source `Strings.yml`:
 ```yml
-auth:
-  loginButton: Log In
-  passwordTitle: Password
+auth: # grouping of strings
+  loginButton: Log In # If you don't specify a language it defaults to a base language
   emailTitle: Email
-  error:
+    en: Email # specifying a language
+  passwordTitle: 
+    en: Password
+    de: Passwort # multiple languages
+  error: # infinitely nested groups
     wrongEmailPassword: Incorrect email/password combination
-welcome:
-  title: Hello %@
+home:
+  title: Hello ${name} # this is a placeholder. Without a type defaults to %@ on apple platforms
+  postCount: "Total posts: ${postCount:d}" # the placeholder now has a type %d
+  articles: # this is a pluralized string
+    en: You have ${articleCount:d} # placeholder will be replace with pluralization
+    en.articleCount: # supports pluralizing multiple placeholders in a single string
+      none: no articles
+      one: one article
+      other: ${articles:d} articles
 ```
 
-or `Strings.toml`:
-```toml
-[auth]
-emailTitle = "Email"
-loginButton = "Log In"
-passwordTitle = "Password"
+This generates `.swift`, `.strings`, and `.stringsdict` files for multiple languages.
 
-[auth.error]
-wrongEmailPassword = "Incorrect email/password combination"
-
-[welcome]
-title = "Hello %@"
-```
-
-Generated to `Localized.strings`:
-```
-"auth.emailTitle" = "Email";
-"auth.loginButton" = "Log In";
-"auth.passwordTitle" = "Password";
-
-"auth.error.wrongEmailPassword" = "Incorrect email/password combination";
-
-"welcome.title" = "Hello %@";
-```
-
-Then generation with [SwiftGen](https://github.com/SwiftGen/SwiftGen):
-```sh
-$ swiftgen strings --template structured-swift4 --output Strings.swift
-```
-
-Results in usage like this:
+The Swift file then allows usage like this:
 ```swift
-errorLabel.text = L10n.Auth.Error.wrongEmailPassword
-welcomeLabel.text = L10n.Welcome.title("John")
-
+errorLabel.text = Strings.auth.error.wrongEmailPassword
+welcomeLabel.text = Strings.home.title(name: "John")
+postsLabel.text = Strings.home.postCount(postCount: 10)
+articleLabel.text = Strings.home.articles(articleCount: 4)
 ```
 
 ## Future Directions
-- Named placeholders
-- Plural support
-- Multi-language support
 - Comments and other data for keys
-- Generate typed access files like SwiftGen but with extras like commments and named placeholders
-- Generate to other languages like Android `R.string` file
+- Generate to other languages and platforms like Android `R.string` file or translation specific files
+- Importing of translation files
