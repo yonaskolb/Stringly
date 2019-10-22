@@ -67,3 +67,4 @@ welcomeLabel.text = L10n.Welcome.title("John")
 - Cross platform plural support
 - Multi-language support
 - Comments and other data for keys
+- Generate access files like SwiftGen but with extras like named substitions and commments
