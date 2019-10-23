@@ -62,9 +62,9 @@ welcomeLabel.text = L10n.Welcome.title("John")
 ```
 
 ## Future Directions
-- Generate to other languages like Android `R.string` file
-- Cross platform string substitutions
-- Cross platform plural support
+- Named placeholders
+- Plural support
 - Multi-language support
 - Comments and other data for keys
-- Generate access files like SwiftGen but with extras like named substitions and commments
+- Generate typed access files like SwiftGen but with extras like commments and named placeholders
+- Generate to other languages like Android `R.string` file
