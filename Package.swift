@@ -7,6 +7,7 @@ let package = Package(
     name: "Stringly",
     products: [
         .executable(name: "stringly", targets: ["Stringly"]),
+        .library(name: "StringlyKit", targets: ["StringlyKit"])
     ],
     dependencies: [
         .package(url: "https://github.com/jpsim/Yams", from: "1.0.0"),
