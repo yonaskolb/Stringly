@@ -22,6 +22,35 @@ To generate a single file in a certain langage
 stringly generate-file Strings.yml Strings.strins --language de
 ```
 
+## Installing
+
+Make sure Xcode 11 is installed first.
+
+### [Mint](https://github.com/yonaskolb/mint)
+```sh
+mint install yonaskolb/stringly
+```
+
+### Swift Package Manager
+
+**Use as CLI**
+
+```shell
+git clone https://github.com/yonaskolb/Stringly.git
+cd Stringly
+swift run stringly
+```
+
+**Use as dependency**
+
+Add the following to your Package.swift file's dependencies:
+
+```swift
+.package(url: "https://github.com/yonaskolb/Stringly.git", from: "0.3.0"),
+```
+
+And then import wherever needed: `import StringlyKit`
+
 ## Example
 
 Given a source `Strings.yml`:
