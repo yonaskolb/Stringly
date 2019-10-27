@@ -1,6 +1,6 @@
 # Stringly
 
-Stringly generates type safe localization files from a source `yaml`,`json`, or `toml` file. At the moment only outputs for Apple platforms are supported
+Stringly generates type safe localization files from a source `yaml`,`json`, or `toml` file. At the moment only outputs for Apple platforms are supported, but a generator for Android's R.strings is easy to add
 
 - ✅ **Multi-language** support
 - ✅ **Named placeholders**
