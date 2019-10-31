@@ -37,7 +37,11 @@ public struct Generator {
         if let destinationPath = destinationPath {
             do {
                 try destinationPath.parent().mkpath()
-                try destinationPath.write(content)
+                if destinationPath.exists, try destinationPath.read() == content {
+                    // same content, don't write
+                } else {
+                    try destinationPath.write(content)
+                }
             } catch {
                 throw GenerateError.writingError(error)
             }
