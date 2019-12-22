@@ -12,6 +12,7 @@
 "languages.greeting" = "Hello";
 
 // PLACEHOLDERS
+"placeholders.escaped" = "Text with escaped {braces}";
 "placeholders.hello" = "Hello %@ with number %u";
 
 // PLURALS

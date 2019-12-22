@@ -10,6 +10,7 @@ languages:
     de: Hallo
 placeholders:
   hello: Hello {name} with number {number:u}
+  escaped: Text with escaped \{braces}
 plurals:
   apples:
     en: There {appleCount:u} in the garden

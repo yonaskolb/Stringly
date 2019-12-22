@@ -67,6 +67,7 @@ auth: # grouping of strings
 home:
   title: Hello {name} # this is a placeholder. Without a type defaults to %@ on apple platforms
   postCount: "Total posts: {postCount:d}" # the placeholder now has a type %d
+  escaped: Text with escaped \{braces} # escape braces in text by using \{
   articles: # this is a pluralized string
     en: You have {articleCount:d} # placeholder will be replace with pluralization
     en.articleCount: # supports pluralizing multiple placeholders in a single string

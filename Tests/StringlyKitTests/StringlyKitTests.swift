@@ -18,7 +18,8 @@ final class StringlyTests: XCTestCase {
                 ]
             ],
             "placeholders": [
-                "string": "Hello {name} how many {numbers:u}"
+                "string": "Hello {name} how many {numbers:u}",
+                "escaped": "A \\{brace}",
             ]
         ]
         let strings = StringGroup(dictionary, baseLanguage: "en")
@@ -42,7 +43,12 @@ final class StringlyTests: XCTestCase {
                         placeholders: [
                             StringLocalization.Placeholder(name: "name"),
                             StringLocalization.Placeholder(name: "numbers", type: "u")
-                        ])
+                        ]),
+                    "escaped": StringLocalization(
+                        language: "en",
+                        string: "A \\{brace}",
+                        placeholders: []
+                    ),
                 ])
         ])
         XCTAssertEqual(strings, expectedString)
