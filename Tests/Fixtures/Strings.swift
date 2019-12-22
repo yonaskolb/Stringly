@@ -31,7 +31,7 @@ enum Strings {
         
         /// Text with escaped {braces}
         static let escaped = Strings.localized("placeholders.escaped")
-        /// Hello {**name**} with number {**number**}
+        /// {**name**} with number {**number**}
         static func hello(name: String, number: Int) -> String {
             Strings.localized("placeholders.hello", name, number)
         }

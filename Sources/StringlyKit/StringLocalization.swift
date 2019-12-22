@@ -89,7 +89,7 @@ public struct StringLocalization: Equatable {
         case other
     }
 
-    static let regex = try! NSRegularExpression(pattern: #"[^\\]\{(\S+)\}"#, options: [])
+    static let regex = try! NSRegularExpression(pattern: #"\{(\S+)\}"#, options: [])
 
     static func parsePlaceholders(_ string: String) -> [Placeholder] {
         guard string.contains("{") else { return [] }
@@ -97,7 +97,15 @@ public struct StringLocalization: Equatable {
         let matches = Self.regex.matches(in: string, options: [], range: range)
         var placeholders: [Placeholder] = []
         for match in matches {
-            if let placeholderRange = Range(match.range(at: 1), in: string) {
+            let nsRange = match.range(at: 1)
+            if let placeholderRange = Range(nsRange, in: string) {
+
+                if nsRange.location > 1,
+                    let precedingCharRange = Range(NSRange(location: nsRange.location-2, length: 1), in: string),
+                    String(string[precedingCharRange]) == "\\" {
+                    // exclude escaped placeholders
+                    continue
+                }
                 let placeholder = String(string[placeholderRange])
                 let placeholderParts = placeholder.split(separator: ":").map(String.init)
                 switch placeholderParts.count {

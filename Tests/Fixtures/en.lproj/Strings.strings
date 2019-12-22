@@ -13,7 +13,7 @@
 
 // PLACEHOLDERS
 "placeholders.escaped" = "Text with escaped {braces}";
-"placeholders.hello" = "Hello %@ with number %u";
+"placeholders.hello" = "%@ with number %u";
 
 // PLURALS
 "plurals.apples" = "There %u in the garden";

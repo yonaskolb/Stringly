@@ -9,7 +9,7 @@ languages:
     en: Hello
     de: Hallo
 placeholders:
-  hello: Hello {name} with number {number:u}
+  hello: "{name} with number {number:u}"
   escaped: Text with escaped \{braces}
 plurals:
   apples:
