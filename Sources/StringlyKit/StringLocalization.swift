@@ -71,7 +71,7 @@ public struct StringLocalization: Equatable {
         public var type: String?
 
         public var originalPlaceholder: String {
-            "${\(name)\(type.map { ":\($0)" } ?? "")}"
+            "{\(name)\(type.map { ":\($0)" } ?? "")}"
         }
 
         public init(name: String, type: String? = nil) {
@@ -89,10 +89,10 @@ public struct StringLocalization: Equatable {
         case other
     }
 
-    static let regex = try! NSRegularExpression(pattern: #"\$\{(\S+)\}"#, options: [])
+    static let regex = try! NSRegularExpression(pattern: #"\{(\S+)\}"#, options: [])
 
     static func parsePlaceholders(_ string: String) -> [Placeholder] {
-        guard string.contains("${") else { return [] }
+        guard string.contains("{") else { return [] }
         let range = NSRange(string.startIndex..<string.endIndex, in: string)
         let matches = Self.regex.matches(in: string, options: [], range: range)
         var placeholders: [Placeholder] = []

@@ -18,7 +18,7 @@ final class StringlyTests: XCTestCase {
                 ]
             ],
             "placeholders": [
-                "string": "Hello ${name} how many ${numbers:u}"
+                "string": "Hello {name} how many {numbers:u}"
             ]
         ]
         let strings = StringGroup(dictionary, baseLanguage: "en")
@@ -38,7 +38,7 @@ final class StringlyTests: XCTestCase {
                 strings: [
                     "string": StringLocalization(
                         language: "en",
-                        string: "Hello ${name} how many ${numbers:u}",
+                        string: "Hello {name} how many {numbers:u}",
                         placeholders: [
                             StringLocalization.Placeholder(name: "name"),
                             StringLocalization.Placeholder(name: "numbers", type: "u")

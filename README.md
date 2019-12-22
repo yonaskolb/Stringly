@@ -65,14 +65,14 @@ auth: # grouping of strings
   error: # infinitely nested groups
     wrongEmailPassword: Incorrect email/password combination
 home:
-  title: Hello ${name} # this is a placeholder. Without a type defaults to %@ on apple platforms
-  postCount: "Total posts: ${postCount:d}" # the placeholder now has a type %d
+  title: Hello {name} # this is a placeholder. Without a type defaults to %@ on apple platforms
+  postCount: "Total posts: {postCount:d}" # the placeholder now has a type %d
   articles: # this is a pluralized string
-    en: You have ${articleCount:d} # placeholder will be replace with pluralization
+    en: You have {articleCount:d} # placeholder will be replace with pluralization
     en.articleCount: # supports pluralizing multiple placeholders in a single string
       none: no articles
       one: one article
-      other: ${articles:d} articles
+      other: {articleCount:d} articles
 ```
 
 This generates `.swift`, `.strings`, and `.stringsdict` files for multiple languages.

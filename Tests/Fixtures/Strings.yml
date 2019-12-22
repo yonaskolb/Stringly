@@ -9,10 +9,10 @@ languages:
     en: Hello
     de: Hallo
 placeholders:
-  hello: Hello ${name} with number ${number:u}
+  hello: Hello {name} with number {number:u}
 plurals:
   apples:
-    en: There ${appleCount:u} in the garden
+    en: There {appleCount:u} in the garden
     en.appleCount:
       one: is 1 apple
-      other: are ${appleCount:u} apples
+      other: are {appleCount:u} apples
