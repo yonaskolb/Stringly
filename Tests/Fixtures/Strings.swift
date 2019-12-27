@@ -31,7 +31,7 @@ enum Strings {
         
         /// Text with escaped {braces}
         static let escaped = Strings.localized("placeholders.escaped")
-        /// {**name**} with number {**number**}
+        /// **{name}** with number **{number}**
         static func hello(name: String, number: Int) -> String {
             Strings.localized("placeholders.hello", name, number)
         }
@@ -39,7 +39,7 @@ enum Strings {
     
     enum plurals {
         
-        /// There {**pluralized appleCount**} in the garden
+        /// There **{pluralized appleCount}** in the garden
         static func apples(appleCount: Int) -> String {
             Strings.localized("plurals.apples", appleCount)
         }

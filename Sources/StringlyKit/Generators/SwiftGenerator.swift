@@ -71,7 +71,7 @@ public struct SwiftGenerator {
                 """
             }
             let languageString = localizedString.languages[language]!
-            let comment = localizedString.replacePlaceholders(languageString.string) { "{**\(languageString.plurals.isEmpty ? "" : "pluralized ")\($0.name)**}"}
+            let comment = localizedString.replacePlaceholders(languageString.string) { "**{\(languageString.plurals.isEmpty ? "" : "pluralized ")\($0.name)}**"}
             content += "\n/// \(comment)\n\(line)"
         }
 
