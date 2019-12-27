@@ -11,6 +11,7 @@ languages:
 placeholders:
   hello: "{name} with number {number:u}"
   escaped: Text with escaped \{braces}
+  unnamed: Text {}
 plurals:
   apples:
     en: There {appleCount:u} in the garden

@@ -20,6 +20,7 @@ final class StringlyTests: XCTestCase {
             "placeholders": [
                 "string": "Hello {name} how many {numbers:u}",
                 "escaped": "A \\{brace}",
+                "unnamed": "Text {}",
             ]
         ]
         let strings = StringGroup(dictionary, baseLanguage: "en")
@@ -48,6 +49,11 @@ final class StringlyTests: XCTestCase {
                         language: "en",
                         string: "A \\{brace}",
                         placeholders: []
+                    ),
+                    "unnamed": StringLocalization(
+                        language: "en",
+                        string: "Text {}",
+                        placeholders: [StringLocalization.Placeholder(name: ""),]
                     ),
                 ])
         ])

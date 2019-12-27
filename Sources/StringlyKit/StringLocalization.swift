@@ -78,6 +78,8 @@ public struct StringLocalization: Equatable {
             self.name = name
             self.type = type
         }
+
+        public var hasName: Bool { !name.isEmpty }
     }
 
     public enum Plural: String, CaseIterable {
@@ -89,7 +91,7 @@ public struct StringLocalization: Equatable {
         case other
     }
 
-    static let regex = try! NSRegularExpression(pattern: #"\{(\S+)\}"#, options: [])
+    static let regex = try! NSRegularExpression(pattern: #"\{(\S*)\}"#, options: [])
 
     static func parsePlaceholders(_ string: String) -> [Placeholder] {
         guard string.contains("{") else { return [] }
@@ -109,6 +111,8 @@ public struct StringLocalization: Equatable {
                 let placeholder = String(string[placeholderRange])
                 let placeholderParts = placeholder.split(separator: ":").map(String.init)
                 switch placeholderParts.count {
+                case 0:
+                    placeholders.append(Placeholder(name: placeholder))
                 case 1:
                     placeholders.append(Placeholder(name: placeholder))
                 case 2:

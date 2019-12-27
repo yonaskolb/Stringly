@@ -41,21 +41,13 @@ public struct SwiftGenerator {
 
     func parseGroup(_ group: StringGroup, language: String) -> String {
 
-        /*
-         /// Report Conversation
-         static let title = Strings.tr("Strings", "messages.reportConversation.title")
-
-         static func intro(_ p1: Int, _ p2: String) -> String {
-         return Strings.tr("Strings", "profile.intro", p1, p2)
-         }
-         */
         var content = ""
         let strings = group.strings.sorted { $0.key < $1.key }
         for (key, localizedString) in strings {
-            let placeholders: [(name: String, type: String)] = localizedString.placeholders.map { placeholder in
-                let name = placeholder.name
+            let placeholders: [(name: String, type: String, named: Bool)] = localizedString.placeholders.enumerated().map { index, placeholder in
+                let name = placeholder.hasName ? placeholder.name : "p\(index)"
                 let type = PlaceholderType(string: placeholder.type ?? "@")?.rawValue ?? "CVarArg"
-                return (name, type)
+                return (name, type, placeholder.hasName)
             }
 
             let name = key
@@ -64,9 +56,17 @@ public struct SwiftGenerator {
             if placeholders.isEmpty {
                 line = "static let \(name) = \(namespace).localized(\"\(key)\")"
             } else {
+                let params = placeholders
+                .map { "\($0.named ? "" : "_ ")\($0.name): \($0.type)" }
+                .joined(separator: ", ")
+
+                let callingParams = placeholders
+                .map { $0.name }
+                .joined(separator: ", ")
+
                 line  = """
-                static func \(name)(\(placeholders.map { "\($0.name): \($0.type)" }.joined(separator: ", "))) -> String {
-                    \(namespace).localized(\"\(key)\", \( placeholders.map { $0.name }.joined(separator: ", ")))
+                static func \(name)(\(params)) -> String {
+                    \(namespace).localized(\"\(key)\", \(callingParams))
                 }
                 """
             }

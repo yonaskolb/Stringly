@@ -35,6 +35,10 @@ enum Strings {
         static func hello(name: String, number: Int) -> String {
             Strings.localized("placeholders.hello", name, number)
         }
+        /// Text **{}**
+        static func unnamed(_ p0: String) -> String {
+            Strings.localized("placeholders.unnamed", p0)
+        }
     }
     
     enum plurals {

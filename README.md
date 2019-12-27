@@ -67,6 +67,7 @@ auth: # grouping of strings
 home:
   title: Hello {name} # this is a placeholder. Without a type defaults to %@ on apple platforms
   postCount: "Total posts: {postCount:d}" # the placeholder now has a type %d
+  day: "Day: {}" # an unnamed placeholder
   escaped: Text with escaped \{braces} # escape braces in text by using \{
   articles: # this is a pluralized string
     en: You have {articleCount:d} # placeholder will be replace with pluralization
@@ -83,6 +84,7 @@ The Swift file then allows usage like this:
 errorLabel.text = Strings.auth.error.wrongEmailPassword
 welcomeLabel.text = Strings.home.title(name: "John")
 postsLabel.text = Strings.home.postCount(postCount: 10)
+day.text = Strings.home.day("Monday")
 articleLabel.text = Strings.home.articles(articleCount: 4)
 ```
 
