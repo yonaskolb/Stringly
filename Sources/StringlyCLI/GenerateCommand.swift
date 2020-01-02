@@ -33,13 +33,13 @@ class GenerateCommand: Command {
         switch platform {
         case .apple:
             for language in languages {
-                try Generator.generate(fileType: .strings, strings: strings, language: language, destinationPath: directoryPath + "\(language).lproj/Strings.strings")
+                try FileWriter.write(fileType: .strings, strings: strings, language: language, destinationPath: directoryPath + "\(language).lproj/Strings.strings")
 
                 if strings.languageHasPlurals(language) {
-                    try Generator.generate(fileType: .stringsDict, strings: strings, language: language, destinationPath: directoryPath + "\(language).lproj/Strings.stringsdict")
+                    try FileWriter.write(fileType: .stringsDict, strings: strings, language: language, destinationPath: directoryPath + "\(language).lproj/Strings.stringsdict")
                 }
             }
-            try Generator.generate(fileType: .swift, strings: strings, language: baseLanguage, destinationPath: directoryPath + "Strings.swift")
+            try FileWriter.write(fileType: .swift, strings: strings, language: baseLanguage, destinationPath: directoryPath + "Strings.swift")
         case .android:
             fatalError("Android not yet supported".red)
         }

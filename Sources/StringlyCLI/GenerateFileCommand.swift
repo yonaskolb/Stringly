@@ -48,6 +48,6 @@ class GenerateFileCommand: Command {
             }
         }
 
-        try Generator.generate(fileType: fileType, strings: strings, language: language, destinationPath: destinationPath)
+        try FileWriter.write(fileType: fileType, strings: strings, language: language, destinationPath: destinationPath)
     }
 }

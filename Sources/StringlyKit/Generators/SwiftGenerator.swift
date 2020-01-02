@@ -7,16 +7,16 @@
 
 import Foundation
 
-public struct SwiftGenerator {
+public struct SwiftGenerator: Generator {
 
     let namespace = "Strings"
 
     public init() {}
 
-    public func getSwiftFile(group: StringGroup, language: String) -> String {
+    public func generate(stringGroup: StringGroup, language: String) -> String {
 
 
-        let content = parseGroup(group, language: language).replacingOccurrences(of: "\n", with: "\n    ")
+        let content = parseGroup(stringGroup, language: language).replacingOccurrences(of: "\n", with: "\n    ")
 
         let file = """
         // This file was auto-generated with https://github.com/yonaskolb/Stringly

@@ -48,11 +48,11 @@ struct StringsDict: Encodable {
     }
 }
 
-public struct StringsDictGenerator {
+public struct StringsDictGenerator: Generator {
 
     public init() {}
 
-    public func toStringsDict(stringGroup: StringGroup, language: String) throws -> String {
+    public func generate(stringGroup: StringGroup, language: String) throws -> String {
 
         let encoder = PropertyListEncoder()
         encoder.outputFormat = .xml

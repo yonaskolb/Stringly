@@ -8,12 +8,11 @@
 import Foundation
 import Codability
 
-
-public struct StringsGenerator {
+public struct StringsGenerator: Generator {
 
     public init() {}
 
-    public func toString(stringGroup: StringGroup, language: String) -> String {
+    public func generate(stringGroup: StringGroup, language: String) throws -> String {
         let description = "// This file was auto-generated with https://github.com/yonaskolb/Stringly"
         return "\(description)\n\(lines(stringGroup, language: language).joined(separator: "\n"))"
     }

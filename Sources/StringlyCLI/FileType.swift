@@ -8,6 +8,7 @@
 import Foundation
 import SwiftCLI
 import PathKit
+import StringlyKit
 
 public enum FileType: String, ConvertibleFromString {
     case strings
@@ -20,6 +21,14 @@ public enum FileType: String, ConvertibleFromString {
         case "stringsdict": self = .stringsDict
         case "swift": self = .swift
         default: return nil
+        }
+    }
+
+    var generator: Generator {
+        switch self {
+        case .strings: return StringsGenerator()
+        case .stringsDict: return StringsDictGenerator()
+        case .swift: return SwiftGenerator()
         }
     }
 }
