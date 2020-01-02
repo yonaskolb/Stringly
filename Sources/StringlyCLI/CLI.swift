@@ -15,7 +15,7 @@ public class StringlyCLI {
     let cli: CLI
 
     public init() {
-        cli = CLI(name: "swiftgen", version: version, description: "Generates localization files from a yaml spec", commands: [
+        cli = CLI(name: "stringly", version: version, description: "Generates localization files from a spec", commands: [
             GenerateCommand(),
             GenerateFileCommand(),
             ])
