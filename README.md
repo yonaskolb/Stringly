@@ -19,7 +19,7 @@ stringly generate Strings.yml
 ```
 To generate a single file in a certain langage
 ```
-stringly generate-file Strings.yml Strings.strins --language de
+stringly generate-file Strings.yml Strings.strings --language de
 ```
 
 ## Installing
@@ -70,7 +70,7 @@ home:
   day: "Day: {}" # an unnamed placeholder
   escaped: Text with escaped \{braces} # escape braces in text by using \{
   articles: # this is a pluralized string
-    en: You have {articleCount:d} # placeholder will be replace with pluralization
+    en: You have {articleCount:d} # placeholder will be replaced with pluralization
     en.articleCount: # supports pluralizing multiple placeholders in a single string
       none: no articles
       one: one article
@@ -90,5 +90,5 @@ articleLabel.text = Strings.home.articles(articleCount: 4)
 
 ## Future Directions
 - Comments and other data for keys
-- Generate to other languages and platforms like Android `R.string` file or translation specific files
+- Generate files for other platforms like Android `R.string` file or translation specific files
 - Importing of translation files
