@@ -51,8 +51,11 @@ public enum Strings {
 }
 
 extension Strings {
+
+    public static var bundle: Bundle = Bundle(for: BundleToken.self)
+
     private static func localized(table: String = "Strings", _ key: String, _ args: CVarArg...) -> String {
-        let format = NSLocalizedString(key, tableName: table, bundle: Bundle(for: BundleToken.self), comment: "")
+        let format = NSLocalizedString(key, tableName: table, bundle: bundle, comment: "")
         return String(format: format, locale: Locale.current, arguments: args)
     }
 }
