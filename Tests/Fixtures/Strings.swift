@@ -3,48 +3,48 @@
 
 import Foundation
 
-enum Strings {
+public enum Strings {
     
-    enum auth {
+    public enum auth {
         
         /// Email
-        static let emailTitle = Strings.localized("auth.emailTitle")
+        public static let emailTitle = Strings.localized("auth.emailTitle")
         /// Log In
-        static let loginButton = Strings.localized("auth.loginButton")
+        public static let loginButton = Strings.localized("auth.loginButton")
         /// Password
-        static let passwordTitle = Strings.localized("auth.passwordTitle")
+        public static let passwordTitle = Strings.localized("auth.passwordTitle")
         
-        enum error {
+        public enum error {
             
             /// Incorrect email/password combination
-            static let wrongEmailPassword = Strings.localized("auth.error.wrongEmailPassword")
+            public static let wrongEmailPassword = Strings.localized("auth.error.wrongEmailPassword")
         }
     }
     
-    enum languages {
+    public enum languages {
         
         /// Hello
-        static let greeting = Strings.localized("languages.greeting")
+        public static let greeting = Strings.localized("languages.greeting")
     }
     
-    enum placeholders {
+    public enum placeholders {
         
         /// Text with escaped {braces}
-        static let escaped = Strings.localized("placeholders.escaped")
+        public static let escaped = Strings.localized("placeholders.escaped")
         /// **{name}** with number **{number}**
-        static func hello(name: String, number: Int) -> String {
+        public static func hello(name: String, number: Int) -> String {
             Strings.localized("placeholders.hello", name, number)
         }
         /// Text **{}**
-        static func unnamed(_ p0: String) -> String {
+        public static func unnamed(_ p0: String) -> String {
             Strings.localized("placeholders.unnamed", p0)
         }
     }
     
-    enum plurals {
+    public enum plurals {
         
         /// There **{pluralized appleCount}** in the garden
-        static func apples(appleCount: Int) -> String {
+        public static func apples(appleCount: Int) -> String {
             Strings.localized("plurals.apples", appleCount)
         }
     }

@@ -24,7 +24,7 @@ public struct SwiftGenerator: Generator {
 
         import Foundation
 
-        enum \(namespace) {\(content)
+        public enum \(namespace) {\(content)
         }
 
         extension \(namespace) {
@@ -54,7 +54,7 @@ public struct SwiftGenerator: Generator {
             let key = "\(group.pathString)\(group.path.isEmpty ? "" : ".")\(key)"
             let line: String
             if placeholders.isEmpty {
-                line = "static let \(name) = \(namespace).localized(\"\(key)\")"
+                line = "public static let \(name) = \(namespace).localized(\"\(key)\")"
             } else {
                 let params = placeholders
                 .map { "\($0.named ? "" : "_ ")\($0.name): \($0.type)" }
@@ -65,7 +65,7 @@ public struct SwiftGenerator: Generator {
                 .joined(separator: ", ")
 
                 line  = """
-                static func \(name)(\(params)) -> String {
+                public static func \(name)(\(params)) -> String {
                     \(namespace).localized(\"\(key)\", \(callingParams))
                 }
                 """
@@ -79,7 +79,7 @@ public struct SwiftGenerator: Generator {
             content += """
 
             
-            enum \(group.path.last!) {
+            public enum \(group.path.last!) {
                 \(parseGroup(group, language: language).replacingOccurrences(of: "\n", with: "\n    "))
             }
             """
