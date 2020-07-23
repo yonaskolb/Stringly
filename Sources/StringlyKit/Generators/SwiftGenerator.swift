@@ -27,12 +27,31 @@ public struct SwiftGenerator: Generator {
         public enum \(namespace) {\(content)
         }
 
-        extension \(namespace) {
+        public protocol StringGroup {
+            static var localizationKey: String { get }
+        }
+
+        extension StringGroup {
+
+            public static func string(for key: String, _ args: CVarArg...) -> String {
+                return Strings.localized(key: "\\(localizationKey).\\(key)", args: args)
+            }
+        }
+
+        extension Strings {
 
             public static var bundle: Bundle = Bundle(for: BundleToken.self)
 
-            private static func localized(table: String = "Strings", _ key: String, _ args: CVarArg...) -> String {
-                let format = NSLocalizedString(key, tableName: table, bundle: bundle, comment: "")
+            fileprivate static func localized(_ key: String, in group: String, _ args: CVarArg...) -> String {
+                return Strings.localized(key: "\\(group).\\(key)", args: args)
+            }
+
+            fileprivate static func localized(_ key: String, _ args: CVarArg...) -> String {
+                return Strings.localized(key: key, args: args)
+            }
+
+            fileprivate static func localized(key: String, args: [CVarArg]) -> String {
+                let format = NSLocalizedString(key, tableName: "String", bundle: bundle, comment: "")
                 return String(format: format, locale: Locale.current, arguments: args)
             }
         }
@@ -45,6 +64,9 @@ public struct SwiftGenerator: Generator {
     func parseGroup(_ group: StringGroup, language: String) -> String {
 
         var content = ""
+        if !group.path.isEmpty {
+            content += "public static let localizationKey = \"\(group.pathString)\""
+        }
         let strings = group.strings.sorted { $0.key < $1.key }
         for (key, localizedString) in strings {
             let placeholders: [(name: String, type: String, named: Bool)] = localizedString.placeholders.enumerated().map { index, placeholder in
@@ -54,10 +76,14 @@ public struct SwiftGenerator: Generator {
             }
 
             let name = key
-            let key = "\(group.pathString)\(group.path.isEmpty ? "" : ".")\(key)"
+            var key = "\"\(name)\""
+            if !group.path.isEmpty {
+                key += ", in: localizationKey"
+            }
+
             let line: String
             if placeholders.isEmpty {
-                line = "public static let \(name) = \(namespace).localized(\"\(key)\")"
+                line = "public static let \(name) = \(namespace).localized(\(key))"
             } else {
                 let params = placeholders
                 .map { "\($0.named ? "" : "_ ")\($0.name): \($0.type)" }
@@ -69,7 +95,7 @@ public struct SwiftGenerator: Generator {
 
                 line  = """
                 public static func \(name)(\(params)) -> String {
-                    \(namespace).localized(\"\(key)\", \(callingParams))
+                    \(namespace).localized(\(key), \(callingParams))
                 }
                 """
             }
@@ -82,7 +108,7 @@ public struct SwiftGenerator: Generator {
             content += """
 
             
-            public enum \(group.path.last!) {
+            public enum \(group.path.last!): StringGroup {
                 \(parseGroup(group, language: language).replacingOccurrences(of: "\n", with: "\n    "))
             }
             """

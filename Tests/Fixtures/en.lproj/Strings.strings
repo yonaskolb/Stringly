@@ -1,4 +1,5 @@
 // This file was auto-generated with https://github.com/yonaskolb/Stringly
+"ok" = "Ok";
 
 // AUTH
 "auth.emailTitle" = "Email";
