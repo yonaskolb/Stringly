@@ -46,7 +46,7 @@ swift run stringly
 Add the following to your Package.swift file's dependencies:
 
 ```swift
-.package(url: "https://github.com/yonaskolb/Stringly.git", from: "0.3.0"),
+.package(url: "https://github.com/yonaskolb/Stringly.git", from: "0.7.0"),
 ```
 
 And then import wherever needed: `import StringlyKit`
