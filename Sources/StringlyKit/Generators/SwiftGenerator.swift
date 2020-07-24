@@ -10,6 +10,7 @@ import Foundation
 public struct SwiftGenerator: Generator {
 
     let namespace = "Strings"
+    var tableName: String { namespace }
 
     public init() {}
 
@@ -34,24 +35,24 @@ public struct SwiftGenerator: Generator {
         extension StringGroup {
 
             public static func string(for key: String, _ args: CVarArg...) -> String {
-                return Strings.localized(key: "\\(localizationKey).\\(key)", args: args)
+                return \(namespace).localized(key: "\\(localizationKey).\\(key)", args: args)
             }
         }
 
-        extension Strings {
+        extension \(namespace) {
 
             public static var bundle: Bundle = Bundle(for: BundleToken.self)
 
             fileprivate static func localized(_ key: String, in group: String, _ args: CVarArg...) -> String {
-                return Strings.localized(key: "\\(group).\\(key)", args: args)
+                return \(namespace).localized(key: "\\(group).\\(key)", args: args)
             }
 
             fileprivate static func localized(_ key: String, _ args: CVarArg...) -> String {
-                return Strings.localized(key: key, args: args)
+                return \(namespace).localized(key: key, args: args)
             }
 
             fileprivate static func localized(key: String, args: [CVarArg]) -> String {
-                let format = NSLocalizedString(key, tableName: "String", bundle: bundle, comment: "")
+                let format = NSLocalizedString(key, tableName: "\(tableName)", bundle: bundle, comment: "")
                 return String(format: format, locale: Locale.current, arguments: args)
             }
         }
