@@ -11,7 +11,7 @@ import PathKit
 
 public class StringlyCLI {
 
-    let version = "0.7.0"
+    let version = "0.7.1"
     let cli: CLI
 
     public init() {
