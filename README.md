@@ -57,7 +57,7 @@ Given a source `Strings.yml`:
 ```yml
 auth: # grouping of strings
   loginButton: Log In # If you don't specify a language it defaults to a base language
-  emailTitle: Email
+  emailTitle:
     en: Email # specifying a language
   passwordTitle: 
     en: Password
