@@ -34,6 +34,10 @@ final class StringlyTests: XCTestCase {
         try generateFileDiff(destination: Self.fixturePath + "Strings.swift")
     }
 
+    func testResourceXMLGeneration() throws {
+        try generateFileDiff(destination: Self.fixturePath + "Strings.xml")
+    }
+
     func testTomlParsing() throws {
         let strings = try Loader.loadStrings(from: Self.fixturePath + "Strings.toml", baseLanguage: "en")
         XCTAssertNotNil(strings)

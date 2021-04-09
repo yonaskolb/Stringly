@@ -71,7 +71,7 @@ public struct StringsDictGenerator: Generator {
                     guard let placeholder = string.getPlaceholder(name: placeholderString),
                         let placeholderType = placeholder.type else { continue }
                     let plurals = plurals.mapValues {
-                        string.replacePlaceholders($0) { $0.applePattern }
+                        string.replacePlaceholders($0) { $1.applePattern }
                     }
                     let rule = StringsDict.Rule(format: placeholderType, plurals: plurals)
                     format.rules[placeholderString] = rule

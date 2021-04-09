@@ -1,0 +1,23 @@
+<!-- This file was generated with https://github.com/yonaskolb/Stringly -->"
+<resources>
+    <string name="ok">Ok</string>
+    
+    <!-- AUTH -->
+    <string name="auth_emailTitle">Email</string>
+    <string name="auth_loginButton">Log In</string>
+    <string name="auth_passwordTitle">Password</string>
+    
+    <!-- AUTH.ERROR -->
+    <string name="auth_error_wrongEmailPassword">Incorrect email/password combination</string>
+    
+    <!-- LANGUAGES -->
+    <string name="languages_greeting">Hello</string>
+    
+    <!-- PLACEHOLDERS -->
+    <string name="placeholders_escaped">Text with escaped {braces}</string>
+    <string name="placeholders_hello">%1$s with number %2$d</string>
+    <string name="placeholders_unnamed">Text %1$s</string>
+    
+    <!-- PLURALS -->
+    <string name="plurals_apples">There %1$d in the garden</string>
+</resources>

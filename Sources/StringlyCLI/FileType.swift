@@ -14,12 +14,14 @@ public enum FileType: String, ConvertibleFromString {
     case strings
     case stringsDict
     case swift
+    case resourceXML
 
     init?(path: Path) {
         switch path.extension?.lowercased() {
         case "strings": self = .strings
         case "stringsdict": self = .stringsDict
         case "swift": self = .swift
+        case "xml": self = .resourceXML
         default: return nil
         }
     }
@@ -29,6 +31,7 @@ public enum FileType: String, ConvertibleFromString {
         case .strings: return StringsGenerator()
         case .stringsDict: return StringsDictGenerator()
         case .swift: return SwiftGenerator()
+        case .resourceXML: return ResourceXMLGenerator()
         }
     }
 }
