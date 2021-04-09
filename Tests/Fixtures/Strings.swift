@@ -76,7 +76,7 @@ extension Strings {
     }
 
     fileprivate static func localized(key: String, args: [CVarArg]) -> String {
-        let format = NSLocalizedString(key, tableName: "String", bundle: bundle, comment: "")
+        let format = NSLocalizedString(key, tableName: "Strings", bundle: bundle, comment: "")
         return String(format: format, locale: Locale.current, arguments: args)
     }
 }
