@@ -42,7 +42,7 @@ class GenerateCommand: Command {
             try FileWriter.write(fileType: .swift, strings: strings, language: baseLanguage, destinationPath: directoryPath + "Strings.swift")
         case .android:
             for language in languages {
-                try FileWriter.write(fileType: .resourceXML, strings: strings, language: language, destinationPath: directoryPath + "values-\(language)/strings.xml")
+                try FileWriter.write(fileType: .resourceXML, strings: strings, language: language, destinationPath: directoryPath + "res/values-\(language)/strings.xml")
             }
         }
 
