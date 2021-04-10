@@ -23,15 +23,19 @@ final class StringlyTests: XCTestCase {
     }
 
     func testStringsGeneration() throws {
-        try generateFileDiff(destination: Self.fixturePath + "en.lproj/Strings.strings")
+        try generateFileDiff(destination: Self.fixturePath + "Apple/en.lproj/Strings.strings")
     }
 
     func testStringsDictGeneration() throws {
-        try generateFileDiff(destination: Self.fixturePath + "en.lproj/Strings.stringsdict")
+        try generateFileDiff(destination: Self.fixturePath + "Apple/en.lproj/Strings.stringsdict")
     }
 
     func testSwiftGeneration() throws {
-        try generateFileDiff(destination: Self.fixturePath + "Strings.swift")
+        try generateFileDiff(destination: Self.fixturePath + "Apple/Strings.swift")
+    }
+
+    func testResourceXMLGeneration() throws {
+        try generateFileDiff(destination: Self.fixturePath + "Android/res/values-en/strings.xml")
     }
 
     func testTomlParsing() throws {
@@ -39,9 +43,15 @@ final class StringlyTests: XCTestCase {
         XCTAssertNotNil(strings)
     }
 
-    func testXGenerate() throws {
+    func testAppleGenerate() throws {
         let cli = StringlyCLI()
-        let output = cli.run(arguments: ["generate", Self.stringsYamlPath.string])
+        let output = cli.run(arguments: ["generate", Self.stringsYamlPath.string, "--directory", (Self.fixturePath + "Apple").string, "--platform", "apple"])
+        XCTAssertEqual(0, output)
+    }
+
+    func testAndroidGenerate() throws {
+        let cli = StringlyCLI()
+        let output = cli.run(arguments: ["generate", Self.stringsYamlPath.string, "--directory", (Self.fixturePath + "Android").string, "--platform", "android"])
         XCTAssertEqual(0, output)
     }
 }

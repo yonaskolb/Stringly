@@ -137,11 +137,11 @@ public struct StringLocalization: Equatable {
         placeholders.first { $0.name == name }
     }
 
-    public func replacePlaceholders(_ string: String, pattern: (Placeholder) -> String) -> String {
+    public func replacePlaceholders(_ string: String, pattern: (Int, Placeholder) -> String) -> String {
         guard string.contains("{") else { return string }
         var string = string
-        for placeholder in placeholders {
-            string = string.replacingOccurrences(of: placeholder.originalPlaceholder, with: pattern(placeholder))
+        for (index, placeholder) in placeholders.enumerated() {
+            string = string.replacingOccurrences(of: placeholder.originalPlaceholder, with: pattern(index, placeholder))
         }
         string = string.replacingOccurrences(of: #"\\\{(\S+)\}"#, with: "{$1}", options: .regularExpression)
         return string
@@ -165,7 +165,7 @@ extension StringLocalization {
                     language.string = string
                     let stringPlaceholders = Self.parsePlaceholders(string)
                     for placeholder in stringPlaceholders {
-                        if !placeholders.contains { $0.name == placeholder.name } {
+                        if !placeholders.contains(where: { $0.name == placeholder.name }) {
                             placeholders.append(placeholder)
                         }
                     }

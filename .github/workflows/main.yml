@@ -27,4 +27,4 @@ jobs:
     - name: Test
       run: swift test 2>&1 | xcpretty
     - name: Compile Strings.swift
-      run: swiftc Tests/Fixtures/Strings.swift
+      run: swiftc Tests/Fixtures/Apple/Strings.swift

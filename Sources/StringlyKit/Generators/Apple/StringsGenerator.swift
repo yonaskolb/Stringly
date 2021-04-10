@@ -13,8 +13,10 @@ public struct StringsGenerator: Generator {
     public init() {}
 
     public func generate(stringGroup: StringGroup, language: String) throws -> String {
-        let description = "// This file was auto-generated with https://github.com/yonaskolb/Stringly"
-        return "\(description)\n\(lines(stringGroup, language: language).joined(separator: "\n"))"
+        """
+        // This file was generated with https://github.com/yonaskolb/Stringly
+        \(lines(stringGroup, language: language).joined(separator: "\n"))
+        """
     }
 
     func lines(_ stringGroup: StringGroup, language: String) -> [String] {
@@ -24,7 +26,7 @@ public struct StringsGenerator: Generator {
             .compactMap { (key, localisationString) in
                 guard let language = localisationString.languages[language] else { return nil }
                 let key = "\(stringGroup.pathString)\(stringGroup.path.isEmpty ? "" : ".")\(key)"
-                let string = localisationString.replacePlaceholders(language.string) { $0.applePattern }
+                let string = localisationString.replacePlaceholders(language.string) { $1.applePattern }
                 return "\"\(key)\" = \"\(string)\";"
         }
         .sorted()
