@@ -41,7 +41,11 @@ public struct SwiftGenerator: Generator {
 
         extension \(namespace) {
 
+            /// The bundle uses for localization
             public static var bundle: Bundle = Bundle(for: BundleToken.self)
+
+            /// Allows overriding any particular key, for A/B tests for example. Values need to be correct for the current language
+            public static var overrides: [String: String] = [:]
 
             fileprivate static func localized(_ key: String, in group: String, _ args: CVarArg...) -> String {
                 return \(namespace).localized(key: "\\(group).\\(key)", args: args)
@@ -52,7 +56,7 @@ public struct SwiftGenerator: Generator {
             }
 
             fileprivate static func localized(key: String, args: [CVarArg]) -> String {
-                let format = NSLocalizedString(key, tableName: "\(tableName)", bundle: bundle, comment: "")
+                let format = overrides[key] ?? NSLocalizedString(key, tableName: "\(tableName)", bundle: bundle, comment: "")
                 return String(format: format, locale: Locale.current, arguments: args)
             }
         }

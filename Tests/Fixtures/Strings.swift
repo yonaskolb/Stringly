@@ -65,7 +65,11 @@ extension StringGroup {
 
 extension Strings {
 
+    /// The bundle uses for localization
     public static var bundle: Bundle = Bundle(for: BundleToken.self)
+
+    /// Allows overriding any particular key, for A/B tests for example. Values need to be correct for the current language
+    public static var overrides: [String: String] = [:]
 
     fileprivate static func localized(_ key: String, in group: String, _ args: CVarArg...) -> String {
         return Strings.localized(key: "\(group).\(key)", args: args)
@@ -76,7 +80,7 @@ extension Strings {
     }
 
     fileprivate static func localized(key: String, args: [CVarArg]) -> String {
-        let format = NSLocalizedString(key, tableName: "Strings", bundle: bundle, comment: "")
+        let format = overrides[key] ?? NSLocalizedString(key, tableName: "Strings", bundle: bundle, comment: "")
         return String(format: format, locale: Locale.current, arguments: args)
     }
 }
