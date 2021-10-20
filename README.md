@@ -24,7 +24,7 @@ stringly generate-file Strings.yml Strings.strings --language de
 
 ## Installing
 
-Make sure Xcode 11 is installed first.
+Make sure Xcode 13 is installed first.
 
 ### [Mint](https://github.com/yonaskolb/mint)
 ```sh
