@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/jpsim/Yams", from: "1.0.0"),
-        .package(url: "https://github.com/kylef/PathKit", from: "0.9.0"),
+        .package(url: "https://github.com/kylef/PathKit", from: "1.0.1"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.1.0"),
         .package(url: "https://github.com/jakeheis/SwiftCLI", from: "5.2.0"),
         .package(url: "https://github.com/dduan/TOMLDeserializer", from: "0.2.4"),
