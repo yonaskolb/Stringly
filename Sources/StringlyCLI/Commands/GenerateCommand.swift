@@ -17,12 +17,13 @@ class GenerateCommand: Command {
     let shortDescription: String = "Generates all required localization files for a given platform"
     let platform = Key<PlatformType>("--platform", "-p", description: "The platform to generate files for. Defaults to apple")
 
-    let sourcePath = Param.Required<Path>()
+    @Param
+    var sourcePath: Path
     let directoryPath = Key<Path>("--directory", "-d", description: "The directory to generate the files in. Defaults to the directory the source path is in")
     let baseLanguage = Key<String>("--base", "-b", description: "The base language to use. Defaults to en")
 
     func execute() throws {
-        let sourcePath = self.sourcePath.value.normalize()
+        let sourcePath = self.sourcePath.normalize()
         let directoryPath = self.directoryPath.value ?? sourcePath.parent()
         let baseLanguage = self.baseLanguage.value ?? "en"
         let platform = self.platform.value ?? .apple

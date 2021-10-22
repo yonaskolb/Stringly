@@ -26,12 +26,14 @@ class GenerateFileCommand: Command {
 
     let type = Key<FileType>("--type", "-t", description: "The file type to generate. Defaults to inferring from the destination file extension")
 
-    let sourcePath = Param.Required<Path>()
-    let destinationPath = Param.Optional<Path>()
+    @Param
+    var sourcePath: Path
+    @Param
+    var destinationPath: Path?
 
     func execute() throws {
-        let sourcePath = self.sourcePath.value.normalize()
-        let destinationPath = self.destinationPath.value?.normalize()
+        let sourcePath = self.sourcePath.normalize()
+        let destinationPath = self.destinationPath?.normalize()
         let language = self.language.value ?? "en"
         let baseLanguage = self.baseLanguage.value ?? "en"
 
