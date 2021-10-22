@@ -1,0 +1,78 @@
+// This file was auto-generated with https://github.com/yonaskolb/Stringly
+// swiftlint:disable all
+
+import Foundation
+
+enum Strings {
+    /// Ok
+    static let ok = Strings.localized("ok")
+    
+    enum auth {
+        static let localizationKey = "auth"
+        /// Email
+        static let emailTitle = Strings.localized(localizationKey, "emailTitle")
+        /// Log In
+        static let loginButton = Strings.localized(localizationKey, "loginButton")
+        /// Password
+        static let passwordTitle = Strings.localized(localizationKey, "passwordTitle")
+        
+        enum error {
+            static let localizationKey = "auth.error"
+            /// Incorrect email/password combination
+            static let wrongEmailPassword = Strings.localized(localizationKey, "wrongEmailPassword")
+        }
+    }
+    
+    enum languages {
+        static let localizationKey = "languages"
+        /// Hello
+        static let greeting = Strings.localized(localizationKey, "greeting")
+    }
+    
+    enum placeholders {
+        static let localizationKey = "placeholders"
+        /// Hello {**name**} with number {**number**}
+        static func hello(name: String, number: Int) -> String {
+            Strings.localized(localizationKey, "hello", name, number)
+        }
+    }
+    
+    enum plurals {
+        static let localizationKey = "plurals"
+        /// There {**pluralized appleCount**} in the garden
+        static func apples(appleCount: Int) -> String {
+            Strings.localized(localizationKey, "apples", appleCount)
+        }
+    }
+}
+
+protocol StringGroup {
+    static var localizationKey: String { get }
+}
+
+extension StringGroup {
+
+    public static func string(for key: String, _ args: CVarArg...) -> String {
+        return Strings.localized("\(localizationKey).\(key)", args)
+    }
+}
+
+extension Strings {
+
+    public static var bundle: Bundle = Bundle(for: BundleToken.self)
+
+    fileprivate static func localized(_ group: String, _ key: String, _ args: CVarArg...) -> String {
+        return Strings.localized("\(group).\(key)", args)
+    }
+
+    fileprivate static func localized(_ key: String, _ args: CVarArg...) -> String {
+        return Strings.localized(key, args)
+    }
+
+    fileprivate static func localized(_ key: String, _ args: [CVarArg]) -> String {
+        let format = NSLocalizedString(key, tableName: "String", bundle: Bundle(for: BundleToken.self), comment: "")
+        return String(format: format, locale: Locale.current, arguments: args)
+    }
+}
+
+private final class BundleToken {}
