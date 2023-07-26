@@ -19,3 +19,6 @@
 
 // PLURALS
 "plurals.apples" = "There %u in the garden";
+
+// WELCOME
+"welcome.title" = "Hello %@";

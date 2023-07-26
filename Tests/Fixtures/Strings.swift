@@ -50,6 +50,12 @@ public enum Strings {
             Strings.localized("apples", in: localizationKey, appleCount)
         }
     }
+    
+    public enum welcome: StringGroup {
+        public static let localizationKey = "welcome"
+        /// Hello %@
+        public static let title = Strings.localized("title", in: localizationKey)
+    }
 }
 
 public protocol StringGroup {

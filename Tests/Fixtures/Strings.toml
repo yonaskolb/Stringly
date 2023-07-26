@@ -1,31 +1,28 @@
+ok = "Ok"
+
 [auth]
 loginButton = "Log In"
 passwordTitle = "Password"
 emailTitle = "Email"
 
-  [auth.error]
-  wrongEmailPassword = "Incorrect email/password combination"
+[auth.error]
+wrongEmailPassword = "Incorrect email/password combination"
 
 [welcome]
 title = "Hello %@"
 
-[languages]
-
-  [languages.greeting]
-  en = "Hello"
-  de = "Hallo"
+[languages.greeting]
+en = "Hello"
+de = "Hallo"
 
 [placeholders]
-simple = "Hello {name:s} from {location:s}"
+hello = "{name} with number {number:u}"
+escaped = "Text with escaped \\{braces}"
+unnamed = "Text {}"
 
-  [placeholders.greeting]
-  en = "Hello {name:s} from {location:s}"
+[plurals.apples]
+en = "There {appleCount:u} in the garden"
 
-[plurals]
-
-  [plurals.apples]
-  en = "There {appleCount:s} in the garden"
-
-    [plurals.apples."en.appleCount"]
-    one = "is 1 apple"
-    other = "are {appleCount:s} apples"
+[plurals.apples."en.appleCount"]
+one = "is 1 apple"
+other = "are {appleCount:u} apples"

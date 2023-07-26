@@ -5,6 +5,8 @@ auth:
   emailTitle: Email
   error:
     wrongEmailPassword: Incorrect email/password combination
+welcome:
+  title: Hello %@
 languages:
   greeting:
     en: Hello
